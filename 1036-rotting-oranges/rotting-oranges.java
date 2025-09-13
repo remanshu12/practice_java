@@ -1,47 +1,43 @@
 class Solution {
     public int orangesRotting(int[][] grid) {
-        if (grid == null || grid.length == 0) return -1;
-        int m = grid.length;
-        int n = grid[0].length;
-        Queue<int[]> q = new LinkedList<>();
-        int fresh = 0; 
-        for (int i=0;i<m;i++) {
-            for (int j=0;j<n;j++) {
-                if (grid[i][j] == 2) {
-                    q.offer(new int[]{i, j, 0}); 
-                } else if (grid[i][j] == 1) {
+        if(grid==null || grid.length==0){
+            return -1;
+        } 
+        int n=grid.length;
+        int m=grid[0].length;
+        int fresh=0;
+        Queue<int[]> q=new LinkedList<>();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(grid[i][j]==2){
+                    q.add(new int[]{i,j,0});
+                }else if(grid[i][j]==1){
                     fresh++;
                 }
             }
         }
-        if (fresh==0){  
+        if(fresh==0){
             return 0;
         }
-
-        int time = 0;
-        int[][] directions = {{1,0},{-1,0},{0,1},{0,-1}};
-
-        while (!q.isEmpty()) {
-            int[] curr = q.poll();
-            int r = curr[0];
-            int c = curr[1];
-            int t = curr[2];
-            time = Math.max(time, t);
-
-            
-            for (int[] d : directions) {
-                int nr=r+d[0];
-                int nc=c+d[1];
-
-                if (nr >= 0 && nr < m && nc >= 0 && nc < n && grid[nr][nc] == 1) {
-                    grid[nr][nc] = 2; 
-                    fresh--; 
-                    q.offer(new int[]{nr, nc, t + 1});
+        int time=0;
+        int delrow[]={-1,0,+1,0};
+        int delcol[]={0,+1,0,-1};
+        while(!q.isEmpty()){
+            int row=q.peek()[0];
+            int col=q.peek()[1];
+            int val=q.peek()[2];
+            q.poll();
+            time=Math.max(time,val);
+            for(int i=0;i<4;i++){
+                int newrow=row+delrow[i];
+                int newcol=col+delcol[i];
+                if(newrow>=0 && newrow<n && newcol>=0 && newcol<m && grid[newrow][newcol]==1){
+                    grid[newrow][newcol]=2;
+                    fresh--;
+                    q.add(new int[]{newrow,newcol,time+1});
                 }
             }
         }
-
-        
-        return fresh == 0 ? time : -1;
+        return fresh==0 ? time:-1;
     }
 }
