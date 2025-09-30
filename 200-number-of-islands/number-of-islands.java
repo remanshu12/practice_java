@@ -1,5 +1,5 @@
 class Solution {
-   static class pair{
+     static class pair{
         int first;
         int second;
         pair(int first,int second){
@@ -12,40 +12,34 @@ class Solution {
         int m=grid[0].length;
         int[][] visited=new int[n][m];
         int count=0;
-        for(int row=0;row<n;row++){
-            for(int col=0;col<m;col++){
-                if(visited[row][col]==0 && grid[row][col]=='1'){
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(visited[i][j]==0 && grid[i][j]=='1'){
                     count++;
-                    bfs(row,col,visited,grid);
+                    bfs(visited,i,j,n,m,grid);
                 }
             }
         }
         return count;
     }
-    static void bfs(int ro,int co,int[][]visited,char[][] grid){
-        visited[ro][co]=1;
+    static void bfs(int[][] visited,int row,int col,int n,int m,char[][] grid ){
+        int[] delrow={-1,0,1,0};
+        int[] delcol={0,1,0,-1};
+        visited[row][col]=1;
         Queue<pair> q=new LinkedList<>();
-        q.add(new pair(ro,co));
-        int n=grid.length;
-        int m=grid[0].length;
-
-        int[] drow = {-1, 0, 1, 0};
-        int[] dcol = {0, 1, 0, -1};
-
+        q.add(new pair(row,col));
         while(!q.isEmpty()){
-            int row=q.peek().first;
-            int col=q.peek().second;
+             row=q.peek().first;
+             col=q.peek().second;
             q.poll();
-                for(int i=0;i<4;i++){
-                    int nrow=row+drow[i];
-                    int ncol=col+dcol[i];
-                    if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]=='1' &&   visited[nrow][ncol]==0){
-                        visited[nrow][ncol]=1;
-                        q.add(new pair(nrow,ncol));
-                    }
-                }
-            
-
+        for(int i=0;i<4;i++){
+            int newrow=row+delrow[i];
+            int newcol=col+delcol[i];
+            if(newrow>=0 && newrow<n && newcol>=0 && newcol<m && visited[newrow][newcol]==0 && grid[newrow][newcol]=='1'){
+                visited[newrow][newcol]=1;
+                q.add(new pair(newrow,newcol));
+            }
         }
+     }
     }
 }
