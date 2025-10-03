@@ -1,47 +1,32 @@
 class Solution {
-    static int index=0;
     public boolean exist(char[][] board, String word) {
-        int n=board.length;
-        int m=board[0].length;
-        boolean visited[][]=new boolean[n][m];
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                visited[i][j]=false;
-            }
-        }
-        int arr[]=new int[1];
-        arr[0]=0;
-         int delrow[]={-1,0,1,0};
-        int delcol[]=  {0,1,0,-1};
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(board[i][j]==word.charAt(arr[0])){
-                    if(dfs(i,j,board,visited,word,n,m,delrow,delcol,arr)==true){
-                        return true;
-                    }
+        
+        int row=board.length;
+        int col=board[0].length;
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(helper(board,word,i,j,0)){
+                    return true;
                 }
             }
         }
         return false;
     }
-    static boolean dfs(int row,int col,char[][] board,boolean[][] vis,String word,int n,int m,int[] delrow,int[] delcol,int arr[]){
-       
-        if(word.length()-1==arr[0]){
+    static boolean helper(char[][] arr,String word,int i,int j,int index){
+        if(index==word.length()){
             return true;
-        } vis[row][col]=true;
-        arr[0]++;
-        for(int i=0;i<4;i++){
-            int newrow=row+delrow[i];
-            int newcol=col+delcol[i];
-            if(newrow>=0 && newcol>=0 && newcol<m && newrow<n && vis[newrow][newcol]==false && board[newrow][newcol]==word.charAt(arr[0])){
-                if(dfs(newrow,newcol,board,vis,word,n,m,delrow,delcol,arr)==true){
-                    return true;
-                }
-            }
         }
-        vis[row][col]=false;
-        arr[0]--;
-        return false;
+        if(i<0 || j<0 || i>=arr.length || j>=arr[0].length || arr[i][j]!=word.charAt(index)){
+            return false;
+        }
+        char temp=arr[i][j];
+        arr[i][j]='#';
+            boolean flag= helper(arr,word,i-1,j,index+1)
+             || helper(arr,word,i,j+1,index+1)
+             || helper(arr,word,i+1,j,index+1) 
+             || helper(arr,word,i,j-1,index+1);
+        arr[i][j]=temp;
 
+        return flag;
     }
 }
