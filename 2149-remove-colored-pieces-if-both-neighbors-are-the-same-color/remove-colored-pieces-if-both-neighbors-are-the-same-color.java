@@ -1,24 +1,35 @@
 class Solution {
     public boolean winnerOfGame(String colors) {
-        int count_a = 0;
-        int count_b = 0;
-        int a = 0;
-        int b = 0;
-
-        for (int i = 0; i < colors.length(); i++) {
-            char c = colors.charAt(i);
-            
-            if (c == 'A') {
-                a++;
-                b = 0; // reset B sequence
-                if (a >= 3) count_a++;
-            } else {
-                b++;
-                a = 0; // reset A sequence
-                if (b >= 3) count_b++;
+        int alice=0;
+        int count_a=0;
+        int count_b=0;
+        int bob=0;
+        for(int i=0;i<colors.length();i++){
+           
+             if(colors.charAt(i)=='A'){
+                alice++;
+                if(alice>=3){
+                    count_a++;
+                }
+            }else {
+                alice=0;
             }
+            
+             if(colors.charAt(i)=='B'){
+                bob++;
+                if(bob>=3){
+                    count_b++;
+                }
+            }else {
+                bob=0;
+            }
+            
         }
-
-        return count_a > count_b;
+        
+        
+        if(count_a>count_b){
+            return true;
+        }
+        return false;
     }
 }
