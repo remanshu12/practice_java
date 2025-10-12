@@ -1,14 +1,17 @@
 class Solution {
     public int partitionArray(int[] nums, int k) {
+        int i=0;
+        int j=0;
         Arrays.sort(nums);
-        int ans=1;
-        int min=nums[0];
-        for(int i=1;i<nums.length;i++){
-            if(nums[i]-min>k){
-                ans++;
-                min=nums[i];
+        int count=1;
+        while(j<nums.length){
+            if(Math.abs(nums[i]-nums[j])<=k){
+                j++;
+            }else{
+                count++;
+                i=j;
             }
         }
-        return ans;
+        return count;
     }
 }
