@@ -13,7 +13,7 @@ class Solution {
                  if (Math.abs(target - sum) < Math.abs(target - closest)) {
                     closest = sum; // found closer sum
                 }
-                min=Math.min(min,sum);
+                // min=Math.min(min,sum);
                if(sum>target){
                 k--;
                }else if(sum<target){
