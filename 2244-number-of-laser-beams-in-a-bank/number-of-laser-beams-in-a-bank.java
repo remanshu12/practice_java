@@ -13,9 +13,7 @@ class Solution {
                 list.add(count);
             }
         }
-        for(int i:list){
-            System.out.print(i+" ");
-        }
+      
         int total=0;
         for(int i=0;i<list.size()-1;i++){
             total+=((list.get(i))*(list.get(i+1)));
