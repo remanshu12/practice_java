@@ -3,20 +3,12 @@ class Solution {
         int m=text1.length();
         int n=text2.length();
         int[][] dp=new int[m+1][n+1];
-       for (int i = 0; i <= m; i++) {
-    Arrays.fill(dp[i], -1);
-}
-        return helper(text1,text2,m,n,dp);
+       
 
+        return helper(text1,text2,m,n,dp);
     }
+    
     int helper(String s1,String s2,int m,int n,int dp[][]){
-       for(int i=0;i<m+1;i++){
-        for(int j=0;j<n+1;j++){
-            if(i==0 || j==0){
-                dp[i][j]=0;
-            }
-        }
-       }
        for(int i=1;i<=m;i++){
         for(int j=1;j<=n;j++){
             if(s1.charAt(i-1)==s2.charAt(j-1)){
