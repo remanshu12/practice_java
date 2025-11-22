@@ -1,24 +1,22 @@
 class Solution {
     public int rob(int[] nums) {
-      if(nums.length<2){
-        return nums[0];
-      }
-      if(nums.length==2){
-        return Math.max(nums[0],nums[1]);
-      }
-    //  System.out.println(helper(nums,0,nums.length-1));
-      return Math.max(helper(nums,0,nums.length-1),helper(nums,1,nums.length));
-
-     
+        int n= nums.length;
+        if (n == 1) return nums[0];
+        int [] dp = new int[nums.length];
+        Arrays.fill(dp,-1);
+        int [] dp1 = new int[nums.length];
+        Arrays.fill(dp1,-1);
+        return Math.max (robber(nums,0,n-1,dp),robber(nums,1,n,dp1));
     }
-    static int helper(int[] nums,int i,int j){
-         int arr[]=new int[nums.length];
-      arr[i]=nums[i];
-      arr[i+1]=Math.max(nums[i],nums[i+1]);
-      for( i=i+2;i<j;i++){
-      arr[i]=Math.max(arr[i-2]+nums[i],arr[i-1]);
-      }
-     System.out.println(Arrays.toString(arr));
-      return arr[j-1];
+    public int robber ( int [] arr , int i ,int j, int dp[]) {
+        if(i>=j){
+            return 0;
+        }
+        if(dp[i]!=-1){ // because 0 can be the answer
+            return dp[i];
+        }
+        int rob =arr[i]+robber(arr,i+2,j,dp);
+        int dont_rob = robber(arr,i+1,j,dp);
+        return dp[i]= Math.max(rob , dont_rob);
     }
 }
