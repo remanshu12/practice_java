@@ -3,12 +3,11 @@ class Solution {
         int count=0;
         int n=Math.min(s1.length(),s2.length());
         n=Math.min(n,s3.length());
-        int temp=s1.length();
         for(int i=0;i<n;i++){
             if(s1.charAt(i)==s2.charAt(i) && s2.charAt(i)==s3.charAt(i)){
                 count++;
             }else{
-                temp=i;
+               
                 break;
             }
         }
