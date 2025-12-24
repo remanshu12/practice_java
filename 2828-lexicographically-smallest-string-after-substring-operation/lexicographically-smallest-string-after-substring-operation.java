@@ -11,7 +11,7 @@ class Solution {
             end=i;
             break;
         }}
-        System.out.println(start+" "+end);
+        
         int n=s.length();
         StringBuilder sb=new  StringBuilder();
         if(start==-1){
