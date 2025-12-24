@@ -1,35 +1,28 @@
 class Solution {
     public String smallestString(String s) {
-        if (s.isEmpty()) return ""; // Handle empty string
-        
-        int n = s.length();
-        StringBuilder sb = new StringBuilder(s);
-        
-        // Check if all characters are 'a'
-        boolean allAs = true;
-        for (int i = 0; i < n; i++) {
-            if (s.charAt(i) != 'a') {
-                allAs = false;
-                break;
-            }
+     //  boolean flag=true;
+       int start=-1;
+       int end=s.length();
+       for(int i=0;i<s.length();i++){
+        if(s.charAt(i)!='a' && start==-1){
+            start=i;
+            
+        }else if(s.charAt(i)=='a' && start!=-1){
+            end=i;
+            break;
+        }}
+        System.out.println(start+" "+end);
+        int n=s.length();
+        StringBuilder sb=new  StringBuilder();
+        if(start==-1){
+            return s.substring(0,n-1)+'z';
         }
-        
-        // If all 'a's, replace last character with 'z'
-        if (allAs) {
-            sb.setCharAt(n - 1, 'z');
-            return sb.toString();
-        }
-        
-        // Find first non-'a' substring and replace with predecessors
-        int i = 0;
-        while (i < n && s.charAt(i) == 'a') {
-            i++;
-        }
-        while (i < n && s.charAt(i) != 'a') {
-            sb.setCharAt(i, (char)(s.charAt(i) - 1));
-            i++;
-        }
-        
-        return sb.toString();
-    }
+         sb.append(s.substring(0,start));
+         for(int i=start;i<end;i++){
+            sb.append((char)(s.charAt(i)-1));
+         }
+         if(end!=-1)
+         sb.append(s.substring(end));
+         return sb.toString();
+}
 }
