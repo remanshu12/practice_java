@@ -3,7 +3,7 @@ class Solution {
         if(word1.length()!=word2.length()){
             return false;
         }
-        System.out.println("hello");
+       // System.out.println("hello");
 
         int arr1[]=new int[27];
         int arr2[]=new int[27];
@@ -18,13 +18,13 @@ class Solution {
         if(set1.size()!=set2.size()){
             return false;
         }
-         System.out.println("hello");
+       //  System.out.println("hello");
         for(char c:set1){
             if(!set2.contains(c)){
                 return false;
             }
         }
-         System.out.println("hello");
+         //System.out.println("hello");
         ArrayList<Integer> list1=new ArrayList<>();
         ArrayList<Integer> list2=new ArrayList<>();
         for(int i=0;i<arr1.length;i++){
@@ -40,7 +40,6 @@ class Solution {
          
         for(int i =0;i<list1.size();i++){
             if(!list1.get(i).equals(list2.get(i))){
-                // System.out.println(list1.get(0)+" "+list1.get(0)+" "+list1.size());
                 return false;
             }
         }
