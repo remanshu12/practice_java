@@ -9,7 +9,7 @@ class Solution {
         }
         long high=min*total;
       //  System.out.println(high);
-        long ans=high;
+        long ans=-1;
         while(low<=high){
             long mid=low+(high-low)/2;
             if(possible(mid,time,total)){
