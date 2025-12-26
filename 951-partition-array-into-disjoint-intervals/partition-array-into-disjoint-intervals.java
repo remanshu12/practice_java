@@ -12,7 +12,7 @@ class Solution {
             if(nums[i]>max){
                 max=nums[i];
             }
-            System.out.println(max+" "+min[i+1]);
+          //  System.out.println(max+" "+min[i+1]);
             if(max<=min[i+1]){
                 return i+1;
             }
