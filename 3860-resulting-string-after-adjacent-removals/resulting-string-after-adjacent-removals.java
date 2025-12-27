@@ -1,31 +1,21 @@
-import java.util.*;
-
 class Solution {
     public String resultingString(String s) {
-        Deque<Character> stack = new ArrayDeque<>();
-
-        for (int i = 0; i < s.length(); i++) {
-            char curr = s.charAt(i);
-
-            if (!stack.isEmpty()) {
-                char top = stack.peek();
-                int diff = Math.abs(curr - top);
-
-                // adjacent letters or a-z / z-a
-                if (diff == 1 || diff == 25) {
-                    stack.pop();
-                    continue;
-                }
+        Stack<Character> stack=new Stack<>();
+int i=0;
+        while(i<s.length()){
+            while(i<s.length() && !stack.isEmpty() && (Math.abs(s.charAt(i)-stack.peek())==25 || Math.abs(s.charAt(i)-stack.peek())==1)){
+              
+                stack.pop();
+                  i++;
             }
-
-            stack.push(curr);
+            if(i<s.length()){
+            stack.push(s.charAt(i));
+            i++;}
         }
-
-        StringBuilder sb = new StringBuilder();
-        while (!stack.isEmpty()) {
+        StringBuilder sb=new StringBuilder();
+        while(!stack.isEmpty()){
             sb.append(stack.pop());
         }
-
         return sb.reverse().toString();
     }
 }
