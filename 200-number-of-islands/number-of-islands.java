@@ -29,14 +29,14 @@ class Solution {
             int dcol[]={0,1,0,-1};
             while(!q.isEmpty()){
                  
-            int row=q.peek().first;
-            int col=q.peek().second;
+            ro=q.peek().first;
+            co=q.peek().second;
             q.poll();
                 
                 for(int i=0;i<4;i++){
                    
-                        int newrow=row+drow[i];
-                        int newcol=col+dcol[i];
+                        int newrow=ro+drow[i];
+                        int newcol=co+dcol[i];
                         if(newrow>=0 && newcol >=0 && newrow<n && newcol<m && visited[newrow][newcol]==0 && grid[newrow][newcol]=='1'){
                             visited[newrow][newcol]=1;
                             q.add(new pair(newrow,newcol));
