@@ -11,7 +11,7 @@ class Solution {
             adj.get(ar[0]).add(ar[1]);
             adj.get(ar[1]).add(ar[0]);
         }
-        System.out.println(adj);
+        
         int visited[]=new int[n];
         return dfs(adj,edges,source,destination,visited);
     }
