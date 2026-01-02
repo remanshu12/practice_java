@@ -7,7 +7,7 @@ class Solution {
         long value=0;
         long key=0;
         for(long i:map.keySet()){
-            System.out.println(i+" "+map.get(i));
+            //System.out.println(i+" "+map.get(i));
            if(value<map.get(i)){
             value=map.get(i);
             key=i;
