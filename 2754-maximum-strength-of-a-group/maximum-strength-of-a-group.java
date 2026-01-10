@@ -24,7 +24,7 @@ class Solution {
         if(one==0 && count==1 && zero>=1){
             return 0;
         }
-        System.out.println(Arrays.toString(nums));
+      //  System.out.println(Arrays.toString(nums));
         count=count/2;
         count=count*2;
         for(int i=0;i<count;i++){
