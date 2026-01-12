@@ -41,8 +41,8 @@ for (int key:odd.keySet()) {
         smaxKey1=key;
     }
 }           
-            System.out.println(smaxKey+" "+smaxKey1);
-           System.out.println(smaxCount+" "+smaxCount1);
+         //   System.out.println(smaxKey+" "+smaxKey1);
+           //System.out.println(smaxCount+" "+smaxCount1);
          if(maxKey!=maxKey1){  
             return nums.length-(maxCount+maxCount1);
          }
