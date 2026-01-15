@@ -23,7 +23,7 @@ class Solution {
 
             }
             ans1=Math.max(ans1,count1);}
-        System.out.println(ans+" "+ans1);
+       // System.out.println(ans+" "+ans1);
         ans=Math.min(ans,ans1);
         return ans*ans;
     }
