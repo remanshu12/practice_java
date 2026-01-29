@@ -10,7 +10,7 @@ class Solution {
         }
         
       } 
-      System.out.println(Arrays.toString(nums));
+     // System.out.println(Arrays.toString(nums));
       int n=nums.length;
         if(nums[n-1]==0 || nums[n-2]==0 || nums[n-3]==0 ){
             return -1;
