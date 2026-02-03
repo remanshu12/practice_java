@@ -7,7 +7,6 @@ class Solution {
                 return false;
             }
         }
-       // System.out.println(Arrays.toString(diff));
         if(diff[0]<0) return false;
             if(diff[diff.length-1]<0) return false;
             int neg=0;
@@ -21,9 +20,8 @@ class Solution {
                 neg++;
                 flag=false;
                }
-
         }
-        // System.out.println(neg+" " + pos);
+        
         return neg==1 && pos==2;
     }
 }
