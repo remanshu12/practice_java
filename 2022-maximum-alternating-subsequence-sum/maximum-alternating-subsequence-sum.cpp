@@ -20,16 +20,10 @@ public:
         int n=nums.size();
         vector<vector<long long>> dp(n+1,vector<long long>(2,0));
       // return helper(nums,0,true);
-      for(int i=n-1;i>=0;i--){
-        for(int j=0;j<=1;j++){
-           
-            if(j==0){
-                dp[i][j]=max(dp[i+1][j],nums[i]+dp[i+1][1]);
-            }else{
-                dp[i][j]=max(dp[i+1][j],-nums[i]+dp[i+1][0]);
-            }
-        }
+      for(int i=1;i<=n;i++){
+        dp[i][1]=max(dp[i-1][0]-nums[i-1],dp[i-1][1]);
+        dp[i][0]=max(dp[i-1][1]+nums[i-1],dp[i-1][0]);
       }
-      return dp[0][0];
+      return max(dp[n][1],dp[n][0]);
     }
 };
