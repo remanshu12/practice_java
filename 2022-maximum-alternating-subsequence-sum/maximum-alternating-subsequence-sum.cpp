@@ -22,14 +22,18 @@ public:
       // return helper(nums,0,true);
       for(int i=n-1;i>=0;i--){
         for(int j=0;j<=1;j++){
-            dp[i][j]=dp[i+1][j];
+            long long pick=0;
+            long long notpick=0;
+            notpick=dp[i+1][j];
             if(j==0){
-                dp[i][j]=max(dp[i][j],nums[i]+dp[i+1][1]);
+                pick=nums[i]+dp[i+1][1];
             }else{
-                dp[i][j]=max(dp[i][j],-nums[i]+dp[i+1][0]);
+                pick=-nums[i]+dp[i+1][0];
             }
+            dp[i][j]=max(pick,notpick);
         }
       }
+      
       return dp[0][0];
     }
 };
