@@ -7,15 +7,13 @@ class Solution {
         while(j<nums.length){
             sum+=nums[j];
             while(sum>=target){
-                len=Math.min(j-i+1,len);
+                len=Math.min(len,j-i+1);
                 sum-=nums[i];
                 i++;
             }
             j++;
+
         }
-        if(len==Integer.MAX_VALUE){
-            return 0;
-        }
-        return len;
+        return len==Integer.MAX_VALUE ? 0:len;
     }
 }
