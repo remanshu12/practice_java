@@ -14,22 +14,18 @@
  * }
  */
 class Solution {
-    public boolean hasPathSum(TreeNode root, int targetSum) {
-       
-       return find(root,targetSum);
-        
-    }
-    static boolean find(TreeNode root, int targetSum){
-        if(root==null  ){
+    static boolean helper(TreeNode root,int sum,int total){  
+        if(root==null){   
             return false;
         }
-       
-        targetSum=targetSum-root.val;
-         if(targetSum==0 && (root.left==null && root.right==null)){
+        if(root.left==null && root.right==null && total+root.val==sum){
             return true;
         }
+        return helper(root.left,sum,total+root.val) || helper(root.right,sum,total+root.val);
+    }
+    public boolean hasPathSum(TreeNode root, int sum) {
+        if(root==null) return false;
         
-       return find(root.left,targetSum)|| find(root.right,targetSum);
-
+        return helper(root,sum,0);
     }
 }
