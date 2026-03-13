@@ -18,13 +18,14 @@ class Solution {
         if(root==null){   
             return;
         }
+        curr.add(root.val);
         if(root.left==null && root.right==null && total+root.val==sum){
-            curr.add(root.val);
+            
             list.add(new ArrayList<>(curr));
             curr.remove(curr.size()-1);
             return ;
         }
-            curr.add(root.val);
+           
          helper(curr,list,root.left,sum,total+root.val);
           helper(curr,list,root.right,sum,total+root.val);
           curr.remove(curr.size()-1);
