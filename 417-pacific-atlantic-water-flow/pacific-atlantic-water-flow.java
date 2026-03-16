@@ -1,37 +1,36 @@
 class Solution {
-    public List<List<Integer>> pacificAtlantic(int[][] height) {
-        int row=height.length;
-        int col=height[0].length;
-        boolean[][] pacific=new boolean[row][col];
-        boolean[][] atlantic=new boolean[row][col];
-        for(int i=0;i<row;i++){
-            dfs(row,col,i,0,height,pacific);
-             dfs(row,col,i,col-1,height,atlantic);
-
+    public List<List<Integer>> pacificAtlantic(int[][] grid) {
+        List<List<Integer>> list=new ArrayList<>();
+        int n=grid.length;
+        int m=grid[0].length;
+        boolean pac[][]=new boolean[n][m];
+        boolean at[][]=new boolean[n][m];
+        for(int i=0;i<n;i++){
+            dfs(i,0,pac,n,m,grid);
+            dfs(i,m-1,at,n,m,grid);
         }
-        for(int i=0;i<col;i++){
-             dfs(row,col,0,i,height,pacific);
-             dfs(row,col,row-1,i,height,atlantic);
+        for(int i=0;i<m;i++){
+            dfs(0,i,pac,n,m,grid);
+            dfs(n-1,i,at,n,m,grid);
         }
-        List<List<Integer>> result=new ArrayList<>();
-        for(int i=0;i<row;i++){
-            for(int j=0;j<col;j++){
-                if(pacific[i][j] && atlantic[i][j]){
-                    result.add(Arrays.asList(i,j));
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(at[i][j]&& pac[i][j]){
+                    list.add(Arrays.asList(i,j));
                 }
             }
         }
-        return result;
+        return list;
     }
-    static void dfs(int rows,int cols,int row,int col,int[][] height,boolean[][] visited){
-        visited[row][col]=true;
-        int delrow[]={-1,0,1,0};
-        int delcol[]={0,1,0,-1};
+    static void dfs(int row,int col,boolean[][] arr,int n,int m,int grid[][]){
+        arr[row][col]=true;
+        int rowArr[]={-1,1,0,0};
+        int colArr[]={0,0,1,-1};
         for(int i=0;i<4;i++){
-            int newrow=row+delrow[i];
-            int newcol=col+delcol[i];
-            if(newrow>=0 && newcol>=0 && newrow<rows && newcol<cols && visited[newrow][newcol]!=true && height[newrow][newcol]>=height[row][col]){
-                dfs(rows,cols,newrow,newcol,height,visited);
+            int newrow=rowArr[i]+row;
+            int newcol=colArr[i]+col;
+            if(newrow>=0 && newcol>=0 && newrow<n && newcol<m && grid[row][col]<=grid[newrow][newcol] && arr[newrow][newcol]!=true){
+                dfs(newrow,newcol,arr,n,m,grid);
             }
         }
     }
