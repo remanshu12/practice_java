@@ -15,6 +15,9 @@ class Solution {
             int effort=pq.peek()[0];
             int row=pq.peek()[1];
             int col=pq.peek()[2];
+             if (row == n - 1 && col == m - 1) {
+                return effort;
+            }
             pq.poll();
             for(int i=0;i<4;i++){
                 int newrow=row+rowArr[i];
