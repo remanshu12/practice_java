@@ -1,52 +1,32 @@
-class tuple{
-    int dis;
-    int row;
-    int col;
-    tuple(int d,int r,int c){
-        dis=d;
-        row=r;
-        col=c;
-    }
-}
 class Solution {
-    public int minimumEffortPath(int[][] height) {
-        PriorityQueue<tuple> pq=new PriorityQueue<>((a,b)-> a.dis-b.dis);
-        int n=height.length;
-        int m=height[0].length;
+    public int minimumEffortPath(int[][] grid) {
+        int n=grid.length;
+        int m=grid[0].length;
+        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[0]-b[0]);
+        pq.add(new int[]{0,0,0});
+        int[] rowArr={-1,1,0,0};
+        int[] colArr={0,0,1,-1};
         int dist[][]=new int[n][m];
         for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                dist[i][j]=(int)1e9;
-            }
+            Arrays.fill(dist[i],Integer.MAX_VALUE);
         }
         dist[0][0]=0;
-        pq.add(new tuple(0,0,0));
-        int dr[]={-1,0,1,0};
-        int dc[]={0,1,0,-1};
-
-        while(pq.size()!=0){
-            tuple it=pq.poll();
-            int diff=it.dis;
-            int row=it.row;
-            int col=it.col;
-
-            if(row==n-1 && col== m-1){
-                return diff;
-            }
-
+        while(!pq.isEmpty()){
+            int effort=pq.peek()[0];
+            int row=pq.peek()[1];
+            int col=pq.peek()[2];
+            pq.poll();
             for(int i=0;i<4;i++){
-                int newrow=row+dr[i];
-                int newcol=col+dc[i];
+                int newrow=row+rowArr[i];
+                int newcol=col+colArr[i];
                 if(newrow>=0 && newcol>=0 && newrow<n && newcol<m){
-                    int neweffort=Math.max(Math.abs(height[row][col]-height[newrow][newcol]),diff);
-                    if(neweffort<dist[newrow][newcol]){
-                        dist[newrow][newcol]=neweffort;
-                        pq.add(new tuple(neweffort,newrow,newcol));
+                    if(dist[newrow][newcol]>Math.max(effort,Math.abs(grid[newrow][newcol]-grid[row][col]))){
+                        dist[newrow][newcol]=Math.max(effort,Math.abs(grid[newrow][newcol]-grid[row][col]));
+                        pq.add(new int[]{dist[newrow][newcol],newrow,newcol});
                     }
                 }
             }
         }
-        return 0;
-
+        return dist[n-1][m-1];
     }
 }
