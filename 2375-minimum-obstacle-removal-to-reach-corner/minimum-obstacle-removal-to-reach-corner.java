@@ -5,6 +5,7 @@ class Solution {
         boolean visited[][]=new boolean[n][m];
         PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[0]-b[0]);
       //  int obs=0;
+      visited[0][0]=true;
         int rowArr[]={-1,1,0,0};
         int colArr[]={0,0,-1,1};
         pq.add(new int[]{grid[0][0],0,0});
