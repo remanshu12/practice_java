@@ -15,7 +15,7 @@ class Solution {
             int row=pq.peek()[1];
             int col=pq.peek()[2];
             if(row==n-1 && col==m-1){
-                min=Math.min(min,obs);
+                return obs;
             }
             pq.poll();
             for(int i=0;i<4;i++){
@@ -27,7 +27,7 @@ class Solution {
                 }
             }
         }
-        return min;
+        return -1;
         
     }
 }
