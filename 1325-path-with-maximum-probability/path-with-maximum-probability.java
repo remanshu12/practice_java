@@ -1,40 +1,35 @@
 class Solution {
-    public double maxProbability(int n, int[][] edges, double[] succProb, int start, int end) {
-        List<List<double[]>> adj=new ArrayList<>();
-        for(int i=0;i<n;i++){
-            adj.add(new ArrayList<>());
+    public double maxProbability(int n, int[][] edges, double[] succProb, int start_node, int end_node) {
+          ArrayList<ArrayList<double[]>> list=new ArrayList<>();
+        for(int i=0;i<=n;i++){
+            list.add(new ArrayList<>());
         }
-        for(int i=0;i<edges.length;i++){
-            int u=edges[i][0];
-            int v=edges[i][1];
-            double p=succProb[i];
-            adj.get(u).add(new double[]{v,p});
-            adj.get(v).add(new double[]{u,p});
+        int i=0;
+        for(int t[]:edges){
+            list.get(t[0]).add(new double[]{t[1],succProb[i]});
+            list.get(t[1]).add(new double[]{t[0],succProb[i]});
+            i++;
         }
-        double[] prob=new double[n];
-        prob[start]=1.0;
-        PriorityQueue<double[]> pq=new PriorityQueue<>((a,b)->Double.compare(b[1],a[1]));
-        pq.add(new double[]{start,1.0});
-        while(!pq.isEmpty()){
-            double[] curr=pq.poll();
-            int node=(int)curr[0];
-            double p=curr[1];
-            if(node==end){
-                return p;
-            }
-            if(p<prob[node]){
-                continue;
-            }
-            for(double[] ad:adj.get(node)){
-                int no=(int)ad[0];
-                double cost=p*ad[1];
-                if(cost>prob[no]){
-                    prob[no]=cost;
-                    pq.add(new double[]{no,cost});
+        double dist[]=new double[n+1];
+        Arrays.fill(dist,0);
+    dist[start_node]=1.0;
+    PriorityQueue<double[]> pq=new PriorityQueue<>((a,b)->Double.compare(b[0],a[0]));
+    pq.add(new double[]{1,start_node});
+    while(!pq.isEmpty()){
+        double dis=pq.peek()[0];
+        int node=(int)pq.peek()[1];
+        pq.poll();
+        for(double pair[]:list.get(node)){
+                int nd=(int)pair[0];
+                double duri=pair[1];
+                if(dist[nd]<dis*duri){
+                    dist[nd]=dis*duri;
+                    pq.add(new double[]{dis*duri,nd});
                 }
-            }
-
         }
-        return 0.0;
+    }
+    System.out.println(Arrays.toString(dist));
+    
+  return dist[end_node];
     }
 }
