@@ -2,10 +2,13 @@ class Solution {
     public int minimumObstacles(int[][] grid) {
         int n=grid.length;
         int m=grid[0].length;
-        boolean visited[][]=new boolean[n][m];
+        int dist[][]=new int[n][m];
         PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->a[0]-b[0]);
       //  int obs=0;
-      visited[0][0]=true;
+      for(int i=0;i<n;i++){
+        Arrays.fill(dist[i],Integer.MAX_VALUE);
+      }
+      dist[0][0]=0;
         int rowArr[]={-1,1,0,0};
         int colArr[]={0,0,-1,1};
         pq.add(new int[]{grid[0][0],0,0});
@@ -21,9 +24,12 @@ class Solution {
             for(int i=0;i<4;i++){
                 int newrow=row+rowArr[i];
                 int newcol=col+colArr[i];
-                if(newrow>=0 && newcol>=0 && newrow<n && newcol<m && visited[newrow][newcol]!=true){
-                    visited[newrow][newcol]=true;
+                if(newrow>=0 && newcol>=0 && newrow<n && newcol<m){
+                  if(dist[newrow][newcol]>obs+grid[newrow][newcol]){
+                    dist[newrow][newcol]=obs+grid[newrow][newcol];
                     pq.add(new int[]{obs+grid[newrow][newcol],newrow,newcol});
+                  }
+                    
                 }
             }
         }
