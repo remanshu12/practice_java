@@ -1,28 +1,35 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        List<List<Integer>> adj = new ArrayList<>();
-        for(int i=0;i<numCourses;i++) adj.add(new ArrayList<>());
-
-        for(int[] pre:prerequisites)
-            adj.get(pre[1]).add(pre[0]);
-
-        boolean[] vis=new boolean[numCourses];
-        boolean[] path=new boolean[numCourses];
-
-        for (int i=0;i<numCourses;i++)
-            if (!vis[i]&&dfs(i,adj,vis,path)) return false;
-
-        return true;
-    }
-
-    private boolean dfs(int node, List<List<Integer>> adj, boolean[] vis, boolean[] path) {
-        vis[node] = path[node] = true;
-
-        for (int next : adj.get(node))
-            if (!vis[next] && dfs(next, adj, vis, path)) return true;
-            else if (path[next]) return true;
-            
-        path[node] = false;
-        return false;
+    public boolean canFinish(int n, int[][] edges) {
+        ArrayList<ArrayList<Integer>> list=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            list.add(new ArrayList<>());
+        }
+        for(int ed[]:edges){
+            list.get(ed[0]).add(ed[1]);
+        }
+        Queue<Integer> q=new LinkedList<>();
+        int indegree[]=new int[n];
+        for(int i=0;i<n;i++){
+            for(int node:list.get(i)){
+                indegree[node]++;
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(indegree[i]==0){
+                q.add(i);
+            }
+        }
+        int count=0;
+        while(!q.isEmpty()){
+            int curr=q.poll();
+            count++;
+            for(int nd:list.get(curr)){
+                indegree[nd]--;
+                if(indegree[nd]==0){
+                    q.add(nd);
+                }
+            }
+        }
+        return count==n;
     }
 }
