@@ -8,29 +8,28 @@ class Solution {
             list.get(ed[0]).add(ed[1]);
         }
         Queue<Integer> q=new LinkedList<>();
-        int visited[]=new int[n];
+        int indegree[]=new int[n];
         for(int i=0;i<n;i++){
-            if(visited[i]==0){
-                if(dfs(visited,i,list)==false){
-                    return false;
+            for(int node:list.get(i)){
+                indegree[node]++;
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(indegree[i]==0){
+                q.add(i);
+            }
+        }
+        int count=0;
+        while(!q.isEmpty()){
+            int curr=q.poll();
+            count++;
+            for(int nd:list.get(curr)){
+                indegree[nd]--;
+                if(indegree[nd]==0){
+                    q.add(nd);
                 }
             }
         }
-        return true;
-        
-    }
-    static boolean dfs(int[] visited,int node,ArrayList<ArrayList<Integer>> list){
-        visited[node]=1;
-        for(int nd:list.get(node)){
-            if(visited[nd]==0){
-                if(!dfs(visited,nd,list)){
-                    return false;
-                }
-            }else if(visited[nd]==1){
-                return false;
-            }
-        }
-        visited[node]=2;
-        return true;
+        return count==n;
     }
 }
