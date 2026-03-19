@@ -6,14 +6,18 @@ class Solution {
         for(int i=0;i<n;i++){
             if(visited[i]==-1){
                 visited[i]=0;
-                if(!dfs(i,visited,graph)){
+                if(!bfs(i,visited,graph)){
                     return false;
                 }
             }
         }
         return true;
     }
-    static boolean dfs(int node,int visited[],int[][] graph){
+    static boolean bfs(int node,int visited[],int[][] graph){
+        Queue<Integer> q=new LinkedList<>();
+        q.add(node);
+        while(!q.isEmpty()){
+            node=q.poll();
         for(int nd:graph[node]){
             if(visited[nd]==-1){
                 if(visited[node]==1){
@@ -21,15 +25,14 @@ class Solution {
                 }else{
                     visited[nd]=1;
                 }
-                if(!dfs(nd,visited,graph)){
-                    return false;
-                }
+                
+                q.add(nd);
             }else{
                 if(visited[nd]==visited[node]){
                     return false;
                 }
             }
-        }
+        }}
         return true;
     }
 }
