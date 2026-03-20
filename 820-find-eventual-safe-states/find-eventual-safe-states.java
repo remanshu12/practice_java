@@ -1,34 +1,37 @@
 class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
-        int n = graph.length;
-        HashMap<Integer, Boolean> map = new HashMap<>();
-        List<Integer> result = new ArrayList<>();
-        
-        for (int i = 0; i < n; i++) {
-            if (dfs(map, i, graph)) {
-                result.add(i);
+        ArrayList<ArrayList<Integer>> list=new ArrayList<>();
+        int n=graph.length;
+        for(int i=0;i<n;i++){
+            list.add(new ArrayList<>());
+        }
+        int indegree[]=new int[n];
+        Queue<Integer> q=new LinkedList<>();
+        for(int i=0;i<n;i++){
+            for(int nd:graph[i]){
+                list.get(nd).add(i);
+                indegree[i]++;
             }
         }
-        
-        return result;
-    }
-
-    static boolean dfs(HashMap<Integer, Boolean> map, int node, int[][] graph) {
-        if (map.containsKey(node)) {
-            return map.get(node); // already computed
-        }
-
-        // mark as "in progress" (cycle detection)
-        map.put(node, false);
-
-        for (int nei : graph[node]) {
-            if (!dfs(map, nei, graph)) {
-                return false; // if any neighbor is unsafe, this node is unsafe
+        ArrayList<Integer> ans=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            if(indegree[i]==0){
+                q.add(i);
             }
         }
-
-        // mark as safe
-        map.put(node, true);
-        return true;
+        while(!q.isEmpty()){
+            int curr=q.poll();
+              ans.add(curr);
+            for(int nd:list.get(curr)){
+                indegree[nd]--;
+                if(indegree[nd]==0){
+                  
+                    q.add(nd);
+                }
+            }
+        }
+        Collections.sort(ans);
+        return ans;
+        
     }
 }
