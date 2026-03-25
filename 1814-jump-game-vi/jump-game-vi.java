@@ -10,9 +10,9 @@ class Solution {
         for(int i=1;i<n;i++){
            
             while(pq.peek()[1]<i-k){
-                int ll=pq.poll()[1];
+               
                // System.out.println(i+" "+ll);
-               // pq.poll();
+               pq.poll();
             }
             int val=pq.peek()[0];
             dp[i]=nums[i]+val;
