@@ -1,19 +1,20 @@
 class Solution {
     public int jump(int[] nums) {
-        int maxdis=0;
-        int l=0;
-        int r=0;
-        int jump=0;
-        while(r<nums.length-1){
-            maxdis=0;
-            while(l<=r){
-                maxdis=Math.max(maxdis,l+nums[l]);
-                l++;
-            }
-            l=r+1;
-            r=maxdis;
-            jump++;
+        int max=nums[0];
+        if(nums.length==1) return 0;
+        if(nums[0]>=nums.length-1)
+        return 1;
+        int count=1; 
+        for(int i=1;i<nums.length;){
+            int temp=0;
+            while(i<=max && i<nums.length){
+                temp=Math.max(temp,i+nums[i]);
+                if(temp>=nums.length-1) return count+1;
+                i++;
+            }     
+            count++;     
+            max=temp;                            
         }
-        return jump;
-    }
+        return count;
+        }
 }
